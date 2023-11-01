@@ -8,6 +8,7 @@ import queueManager
 metaGuestQ = []
 activeQ = []
 adaQ = []
+queue = []
 
 def getInputs():
     travelTime = 0
@@ -33,12 +34,12 @@ def getGuestInfo(guest, queue):
         guest.waitTime = algorithm.getWaitTime(queue, driver)
         timeFromPrev = zones.zoneLookUp(guest.pickup, queue[-1][1].dropoff)
         guest.waitTime += timeFromPrev
-    return [timeFromPrev, guest] 
+    return [timeFromPrev, guest]
 
 def controller(): 
     i = 0
     queue = []
-    while (i<2):
+    while (i<4):
         guest = getInputs()
         if guest.ADA == 1:
             queue = adaQ
@@ -50,5 +51,5 @@ def controller():
         print('Guest Information')
         write.getGuestInformation(travelInfo[1])
         i+=1
-    
+        
     write.printAllQs(activeQ, adaQ, metaGuestQ)

@@ -8,6 +8,7 @@ class Guest:
         self.ADA = ADA
         self.travelTime = travelTime
         self.waitTime = waitTime
+        self.bump = 0
     
      def __repr__(self):
         return f'''Guest: {self.name}
