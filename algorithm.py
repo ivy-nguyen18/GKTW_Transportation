@@ -1,13 +1,15 @@
 import zones
+
 def getWaitTime(queue, driver):
     totalWaitTime = 0
-    for i, (timeFromPrev, guest) in enumerate(queue):
+    for i, row in queue.iterrows():
         if i == 0 and driver == 1:
-            totalWaitTime += (guest.travelTime)
+            totalWaitTime += row['travelTime'] 
+
         else:
-            totalWaitTime += (guest.travelTime + timeFromPrev)
-    
+            totalWaitTime += row['travelTime'] + row['timeFromPrev']  
     return totalWaitTime
+
 
 def optimizeWaitTime(queue):
     times = []

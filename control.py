@@ -1,55 +1,35 @@
-import time
 import guest
-import write
 import algorithm
 import zones
-import queueManager
 
 metaGuestQ = []
 activeQ = []
 adaQ = []
 queue = []
 
-def getInputs():
+def getInputs(name, reservation, numOfPeople, pickup, dropoff, ADA):
     travelTime = 0
     waitTime = 0
-    name = input('Guest: ')
-    pickup = input("Input pick up location: ")
-    dropoff = input("Input drop off destination: ")
-    ADA = int(input("Is ADA (1 = True/ 0 = False)? "))
-    dropoffFlag = 0
-    reservation = time.ctime()
+    dropoffFlag = 'Picking Up'
+    timeFromPrev = 0
     travelTime = zones.zoneLookUp(pickup, dropoff)
-    return guest.Guest(name, pickup, dropoff, dropoffFlag, reservation, ADA, travelTime, waitTime)
+    return guest.Guest(name, pickup, dropoff, dropoffFlag, reservation, ADA, travelTime, waitTime, numOfPeople, timeFromPrev)
         
 
 def getGuestInfo(guest, queue):
-    timeFromPrev = 0
-    queue = queueManager.updateDropOffs(queue)
+    
     if len(queue) == 0:
         guest.waitTime = zones.zoneLookUp("Towne Hall", guest.pickup)
-        timeFromPrev = guest.waitTime
+        guest.timeFromPrev = guest.waitTime
     else:
-        driver = int(input('Is the driver picking up (0) or dropping off (1) first person in queue? '))
+        #driver = int(input('Is the driver picking up (0) or dropping off (1) first person in queue? '))
+        driver = 0 if queue.iloc[0]['status'] == 'Picking up' else 1
         guest.waitTime = algorithm.getWaitTime(queue, driver)
-        timeFromPrev = zones.zoneLookUp(guest.pickup, queue[-1][1].dropoff)
-        guest.waitTime += timeFromPrev
-    return [timeFromPrev, guest]
+        print(guest.waitTime)
+        guest.timeFromPrev = zones.zoneLookUp(guest.pickup, queue.iloc[-1]['dropoff'])
+        guest.waitTime += guest.timeFromPrev
+    return guest
 
-def controller(): 
-    i = 0
-    queue = []
-    while (i<4):
-        guest = getInputs()
-        if guest.ADA == 1:
-            queue = adaQ
-        else:
-            queue = activeQ
-        travelInfo = getGuestInfo(guest, queue)
-        queue.append(travelInfo)
-        metaGuestQ.append(travelInfo)
-        print('Guest Information')
-        write.getGuestInformation(travelInfo[1])
-        i+=1
-        
-    write.printAllQs(activeQ, adaQ, metaGuestQ)
+def controller(name, reservation, numOfPeople, pickup, dropoff, ADA, queue):
+    guest = getInputs(name, reservation, numOfPeople, pickup, dropoff, ADA)
+    return getGuestInfo(guest, queue)
