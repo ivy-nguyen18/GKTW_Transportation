@@ -17,16 +17,16 @@ def getInputs(name, reservation, numOfPeople, pickup, dropoff, ADA):
         
 
 def getGuestInfo(guest, queue):
-    
     if len(queue) == 0:
         guest.waitTime = zones.zoneLookUp("Towne Hall", guest.pickup)
-        guest.timeFromPrev = guest.waitTime
+        guest.timeFromPrev = guest.waitTime 
     else:
         #driver = int(input('Is the driver picking up (0) or dropping off (1) first person in queue? '))
         driver = 0 if queue.iloc[0]['status'] == 'Picking up' else 1
         guest.waitTime = algorithm.getWaitTime(queue, driver)
         guest.timeFromPrev = zones.zoneLookUp(guest.pickup, queue.iloc[-1]['dropoff'])
         guest.waitTime += guest.timeFromPrev
+    guest.waitTime += guest.waitTime + 5
     return guest
 
 def controller(name, reservation, numOfPeople, pickup, dropoff, ADA, queue):

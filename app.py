@@ -24,7 +24,7 @@ def save_edits():
 st.set_page_config(layout="wide")
 marker = pd.read_excel('GKTW_Markers_2 (1).xlsx')
 
-st.title(':telephone_receiver: GKTW Dispatcher')
+st.title(':telephone_receiver: GKTW Shuttle Dispatcher')
 guest = None
 
 form_col, standard_col, ada_col = st.columns(3)
