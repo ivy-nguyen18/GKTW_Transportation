@@ -1,6 +1,6 @@
 import sqlite3
 
-conn = sqlite3.connect('transportationData.db')
+conn = sqlite3.connect('GKTWTransportationData.db')
 c = conn.cursor()
 
 # Database
@@ -9,21 +9,20 @@ def createTable():
               transportationTable(name TEXT, 
                                     pickupLoc TEXT,
                                     dropoffLoc TEXT,
-                                    reservation DATETIME,
-                                    ADA INT,
+                                    reservation TEXT,
+                                    ADA TEXT,
                                     waitTime TEXT,
-                                    numOfPeople INT
+                                    numOfPeople TEXT
                                     )''')
 
 def addData(name, pickupLoc, dropoffLoc, reservation, ADA, waitTime, numOfPeople):
-    c.execute('INSERT INTO transportationTable(name, pickupLoc, dropoffLoc, reservation, ADA, waitTime, numOfPeople) VALUES (?,?,?,?,?,?,?)', (name, pickupLoc, dropoffLoc, reservation, ADA, waitTime, numOfPeople))
+    c.execute('INSERT INTO transportationTable(name, pickupLoc, dropoffLoc, reservation, ADA, waitTime, numOfPeople) VALUES (?,?,?,?,?,?,?)', [name, pickupLoc, dropoffLoc, reservation, ADA, waitTime, numOfPeople])
     conn.commit()
-    conn.close()
 
-def getData():
-    c.execute('SELECT * FROM transportationTable')
+def getQuery(string):
+    c.execute(string)
     items = c.fetchall()
     for item in items:
         print(item)
     conn.commit()
-    conn.close()
+    conn.commit()

@@ -25,7 +25,6 @@ def getGuestInfo(guest, queue):
         #driver = int(input('Is the driver picking up (0) or dropping off (1) first person in queue? '))
         driver = 0 if queue.iloc[0]['status'] == 'Picking up' else 1
         guest.waitTime = algorithm.getWaitTime(queue, driver)
-        print(guest.waitTime)
         guest.timeFromPrev = zones.zoneLookUp(guest.pickup, queue.iloc[-1]['dropoff'])
         guest.waitTime += guest.timeFromPrev
     return guest

@@ -32,5 +32,6 @@ class Guest:
             'numOfPeople': self.numOfPeople,
             'status': self.driverStatus,
             'travelTime': self.travelTime,
-            'timeFromPrev': self.timeFromPrev
+            'timeFromPrev': self.timeFromPrev,
+            'ADA': self.ADA
         }
