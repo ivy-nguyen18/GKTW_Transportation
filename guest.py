@@ -1,37 +1,30 @@
 class Guest:
-     def __init__(self, name, pickup, dropoff, driverStatus, reservation, ADA, travelTime, waitTime, numOfPeople, timeFromPrev):
+     def __init__(self, name, pickup, dropoff, reservation, ADA, numOfPeople,date):
         self.name = name
         self.pickup = pickup
         self.dropoff = dropoff
-        self.driverStatus = driverStatus
-        self.reservation = reservation
+        self.res_time = reservation
         self.ADA = ADA
-        self.travelTime = travelTime
-        self.waitTime = waitTime
         self.numOfPeople = numOfPeople
-        self.timeFromPrev = timeFromPrev
+        self.res_date = date
     
      def __repr__(self):
         return f'''Guest: {self.name}
                     \tpickup: {self.pickup}
                     \tdropoff: {self.dropoff}
-                    \treseration: {self.reservation}
+                    \tdate: {self.res_date}
+                    \treseration: {self.res_time}
                     \tADA: {self.ADA}
-                    \ttravel time = {self.travelTime}
-                    \twait time = {self.waitTime})
                     \tnum of people = {self.numOfPeople}
                     -------------------------------------------------\n'''
      
      def to_dict(self):
         return {
             'name': self.name,
-            'waitTime': self.waitTime,
-            'reservation': self.reservation,
+            'res_date': self.res_date,
+            'res_time': self.res_time,
             'pickup': self.pickup,
             'dropoff': self.dropoff,
             'numOfPeople': self.numOfPeople,
-            'status': self.driverStatus,
-            'travelTime': self.travelTime,
-            'timeFromPrev': self.timeFromPrev,
             'ADA': self.ADA
         }

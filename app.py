@@ -1,19 +1,21 @@
 import streamlit as st
-import time
 import pandas as pd
 import control
-from database import createTable, addData
+from database import createTable, addData, repopulateTable
+from datetime import datetime 
 
 createTable()
+
 # Initialize session state with dataframes
-# Include initialization of "edited" slots by copying originals
 if 'ada_df' not in st.session_state:
     # print('Initializing ada_df')
-    st.session_state.ada_df = pd.DataFrame(columns=['name', 'waitTime', 'reservation','pickup', 'dropoff', 'numOfPeople', 'status', 'travelTime', 'timeFromPrev', 'ADA' ])
+    df = repopulateTable(str(datetime.today().strftime('%m/%d/%Y')), 'True')
+    st.session_state.ada_df = pd.DataFrame(df, columns=['name', 'res_date', 'res_time','pickup', 'dropoff', 'numOfPeople', 'ADA' ])
     st.session_state.edited_ada_df = st.session_state.ada_df.copy()
 if 'standard_df' not in st.session_state:
     # print('Initializing standard_df')
-    st.session_state.standard_df = pd.DataFrame(columns=['name', 'waitTime', 'reservation','pickup', 'dropoff', 'numOfPeople', 'status', 'travelTime', 'timeFromPrev', 'ADA' ])
+    df = repopulateTable(str(datetime.today().strftime('%m/%d/%Y')), 'False')
+    st.session_state.standard_df = pd.DataFrame(df, columns=['name', 'res_date','res_time','pickup', 'dropoff', 'numOfPeople', 'ADA' ])
     st.session_state.edited_standard_df = st.session_state.standard_df.copy()
 
 # Save edits by copying edited dataframes to "original" slots in session state
@@ -32,9 +34,10 @@ with form_col:
     # print('Going through Forms')
     with st.form(key='form1', clear_on_submit = True):
         st.text_input('Name', key = 'name')
-        col1, col2 = st.columns(2)
-        col1.time_input('Pick Up Time', value = 'now', key = 'reservation')
-        col2.selectbox('Num. of People', list(range(1,8)), key='numOfPeople', index = 0)
+        col1, col2, col3 = st.columns(3)
+        col1.date_input('Pick Up Date', value = 'today',format="MM/DD/YYYY", key = 'date')
+        col2.time_input('Pick Up Time', value = 'now', key = 'reservation')
+        col3.selectbox('Num. of People', list(range(1,8)), key='numOfPeople', index = 0)
         st.selectbox('Pick Up Location',marker['Name'], key='pickup', index = None)
         st.selectbox('Drop Off Location',marker['Name'], key='dropoff', index = None)
         st.checkbox('ADA', key = 'ADA')
@@ -42,18 +45,18 @@ with form_col:
         if submit_button:
             # print('Added someone...')
             if st.session_state.ADA == True:
-                guest = control.getInputs(st.session_state.name, st.session_state.reservation, st.session_state.numOfPeople, st.session_state.pickup, st.session_state.dropoff, st.session_state.ADA, st.session_state.ada_df)
-                st.session_state.ada_df = pd.concat([st.session_state.ada_df, pd.DataFrame([guest.to_dict()])], ignore_index=True).sort_values(by='reservation').reset_index(drop = True)
+                guest = control.getInputs(st.session_state.name, st.session_state.reservation, st.session_state.numOfPeople, st.session_state.pickup, st.session_state.dropoff, st.session_state.ADA, st.session_state.date)
+                st.session_state.ada_df = pd.concat([st.session_state.ada_df, pd.DataFrame([guest.to_dict()])], ignore_index=True).sort_values(by=['res_date','res_time']).reset_index(drop = True)
             else:
-                guest = control.controller(st.session_state.name, st.session_state.reservation, st.session_state.numOfPeople, st.session_state.pickup, st.session_state.dropoff, st.session_state.ADA, st.session_state.standard_df)
-                st.session_state.standard_df = pd.concat([st.session_state.standard_df, pd.DataFrame([guest.to_dict()])], ignore_index=True).sort_values(by='reservation').reset_index(drop = True)
+                guest = control.getInputs(st.session_state.name, st.session_state.reservation, st.session_state.numOfPeople, st.session_state.pickup, st.session_state.dropoff, st.session_state.ADA, st.session_state.date)
+                st.session_state.standard_df = pd.concat([st.session_state.standard_df, pd.DataFrame([guest.to_dict()])], ignore_index=True).sort_values(by=['res_date','res_time']).reset_index(drop = True)
             st.success(f"{guest.name} has been added to queue!")
             # Write to Excel File
-            with pd.ExcelWriter('/Users/ivynguyen/Desktop/GKTW_Transportation_Data.xlsx', engine='openpyxl', mode='a',if_sheet_exists='overlay') as writer:  
+            with pd.ExcelWriter('/Users/ivynguyen/Desktop/GKTW_Transportation_Data_Res.xlsx', engine='openpyxl', mode='a',if_sheet_exists='overlay') as writer:  
                 pd.DataFrame([guest.to_dict()]).to_excel(writer, sheet_name='Sheet1', startrow=writer.sheets['Sheet1'].max_row, index=False, header=False)
 
             # Write to SQL DB
-            addData(str(guest.name), str(guest.pickup), str(guest.dropoff), str(guest.reservation), str(guest.ADA), str(guest.waitTime), str(guest.numOfPeople))
+            addData(str(guest.name), str(guest.res_date),str(guest.res_time), str(guest.pickup), str(guest.dropoff), str(guest.ADA), str(guest.numOfPeople))
 with standard_col:
     # print('Adding to shuttle')
     st.header(':oncoming_taxi: Standard Shuttle')
@@ -61,7 +64,8 @@ with standard_col:
                                 hide_index=True, 
                                 num_rows = 'dynamic', 
                                 key = 'df1',
-                                column_order = ('name', 'reservation','pickup', 'dropoff', 'numOfPeople'),
+                                disabled = ('name', 'res_date', 'res_time','pickup', 'dropoff', 'numOfPeople'),
+                                column_order = ('name', 'res_date', 'res_time','pickup', 'dropoff', 'numOfPeople'),
                             )
 
 with ada_col:
@@ -70,5 +74,6 @@ with ada_col:
                                 hide_index=True, 
                                 num_rows = 'dynamic',
                                 key = 'df2',
-                                column_order = ('name', 'reservation','pickup', 'dropoff', 'numOfPeople'),
+                                disabled = ('name', 'res_date', 'res_time','pickup', 'dropoff', 'numOfPeople'),
+                                column_order = ('name', 'res_date', 'res_time','pickup', 'dropoff', 'numOfPeople')
                             )
