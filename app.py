@@ -3,6 +3,9 @@ import pandas as pd
 import control
 from database import createTable, addData, repopulateTable
 from datetime import datetime 
+from PIL import Image
+
+image = Image.open('GKTW1.png')
 
 createTable()
 
@@ -23,7 +26,6 @@ def save_edits():
     st.session_state.ada_df = st.session_state.edited_ada_df.copy()
     st.session_state.standard_df = st.session_state.edited_standard_df.copy()
 
-st.set_page_config(layout="wide")
 marker = pd.read_excel('GKTW_Markers_2 (1).xlsx')
 
 st.title(':telephone_receiver: GKTW Shuttle Dispatcher (Reservation Style)')
@@ -57,6 +59,7 @@ with form_col:
 
             # Write to SQL DB
             addData(str(guest.name), str(guest.res_date),str(guest.res_time), str(guest.pickup), str(guest.dropoff), str(guest.ADA), str(guest.numOfPeople))
+    st.image(image, use_column_width = 'always')
 with standard_col:
     # print('Adding to shuttle')
     st.header(':oncoming_taxi: Standard Shuttle')
