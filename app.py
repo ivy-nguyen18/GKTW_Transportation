@@ -6,7 +6,7 @@ from datetime import datetime
 from PIL import Image
 
 image = Image.open('GKTW1.png')
-
+st.image(image, width = 200)
 createTable()
 
 # Initialize session state with dataframes
@@ -59,7 +59,6 @@ with form_col:
 
             # Write to SQL DB
             addData(str(guest.name), str(guest.res_date),str(guest.res_time), str(guest.pickup), str(guest.dropoff), str(guest.ADA), str(guest.numOfPeople))
-    st.image(image, use_column_width = 'always')
 with standard_col:
     # print('Adding to shuttle')
     st.header(':oncoming_taxi: Standard Shuttle')
