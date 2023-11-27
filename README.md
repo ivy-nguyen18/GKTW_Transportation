@@ -44,12 +44,13 @@ Depending on whether the ADA checkbox was checked, the guest will populate into 
 The functionality of the tables displayed:
 * Deleteable rows by either clicking the check box at the top of the table to select all and pressing the  *Backspace*  button on the keyboard:
   
-  ![image](https://github.com/ivy-nguyen18/GKTW_Transportation/assets/73045170/1592b418-1cfd-4370-a5e3-08c08023065f)
+  ![image](https://github.com/ivy-nguyen18/GKTW_Transportation/assets/73045170/193722a5-e396-4667-ae90-7d3df2fe866e)
   
   or clicking the row for particular guests and pressing the *Backspace* button on the keyboard:
   
-  ![image](https://github.com/ivy-nguyen18/GKTW_Transportation/assets/73045170/8830774d-dcb9-4b1b-a24b-2e39bdb2ad8b)
-  
+  ![image](https://github.com/ivy-nguyen18/GKTW_Transportation/assets/73045170/5a5a3b7d-8e2e-4b75-961d-65dee1f82398)
+
+* Resize the columns to be able to view the table easier by hovering in between the column headers
 * **WARNING**: you are able to add guests to the table by hovering over the bottom of the table until a plus icon appears in the cell. HOWEVER, adding guests via this method does not save to the database. Thus, PLEASE ADD GUESTS VIA THE INPUT FORM.
 
    ![image](https://github.com/ivy-nguyen18/GKTW_Transportation/assets/73045170/1ff0f9f4-f4b4-4648-8bf9-962f51734a3c)
