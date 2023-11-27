@@ -1,6 +1,12 @@
 import pandas as pd
-marker = pd.read_excel('GKTW_Markers_2 (1).xlsx')
-distanceMatrix = pd.read_excel('Zone Distance_Time Matrix .xlsx')
+
+'''
+Read in all locations within the village, find the corresponding zones, and look up the 
+in the distance matrix of dropoff and pickup zones to get the time
+'''
+
+marker = pd.read_excel('support/GKTW_Markers.xlsx')
+distanceMatrix = pd.read_excel('support/Zone Distance_Time Matrix .xlsx')
 
 def zoneLookUp(start, dest):
     startZone = marker[marker['Name'].str.contains(start)].Zones.item()

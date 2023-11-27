@@ -5,19 +5,25 @@ from database import createTable, addData, repopulateTable
 from datetime import datetime 
 from PIL import Image
 
+'''
+Main page that deploys the streamlit app
+'''
+
+# Set up streamlit application
 st.set_page_config(layout = 'wide')
-image = Image.open('GKTW.png')
+image = Image.open('support/GKTW.png')
 st.image(image, width = 200)
 createTable()
+st.title(':telephone_receiver: GKTW Shuttle Dispatcher (Reservation Ver.)')
+guest = None
+marker = pd.read_excel('support/GKTW_Markers.xlsx')
 
 # Initialize session state with dataframes
 if 'ada_df' not in st.session_state:
-    # print('Initializing ada_df')
     df = repopulateTable(str(datetime.today().strftime('%m/%d/%Y')), 'True')
     st.session_state.ada_df = pd.DataFrame(df, columns=['name', 'res_date', 'res_time','pickup', 'dropoff', 'numOfPeople', 'ADA' ])
     st.session_state.edited_ada_df = st.session_state.ada_df.copy()
 if 'standard_df' not in st.session_state:
-    # print('Initializing standard_df')
     df = repopulateTable(str(datetime.today().strftime('%m/%d/%Y')), 'False')
     st.session_state.standard_df = pd.DataFrame(df, columns=['name', 'res_date','res_time','pickup', 'dropoff', 'numOfPeople', 'ADA' ])
     st.session_state.edited_standard_df = st.session_state.standard_df.copy()
@@ -27,14 +33,10 @@ def save_edits():
     st.session_state.ada_df = st.session_state.edited_ada_df.copy()
     st.session_state.standard_df = st.session_state.edited_standard_df.copy()
 
-marker = pd.read_excel('GKTW_Markers_2 (1).xlsx')
-
-st.title(':telephone_receiver: GKTW Shuttle Dispatcher (Reservation Ver.)')
-guest = None
-
+# Divide webpage into containers
 form_col, standard_col, ada_col = st.columns(3)
 with form_col:
-    # print('Going through Forms')
+    # Construct the form to take user input
     with st.form(key='form1', clear_on_submit = True):
         st.text_input('Name', key = 'name')
         col1, col2, col3 = st.columns(3)
@@ -45,8 +47,8 @@ with form_col:
         st.selectbox('Drop Off Location',marker['Name'], key='dropoff', index = None)
         st.checkbox('ADA', key = 'ADA')
         submit_button = st.form_submit_button("ADD", on_click=save_edits)
+        #Adding someone
         if submit_button:
-            # print('Added someone...')
             if st.session_state.ADA == True:
                 guest = control.getInputs(st.session_state.name, st.session_state.reservation, st.session_state.numOfPeople, st.session_state.pickup, st.session_state.dropoff, st.session_state.ADA, st.session_state.date)
                 st.session_state.ada_df = pd.concat([st.session_state.ada_df, pd.DataFrame([guest.to_dict()])], ignore_index=True).sort_values(by=['res_date','res_time']).reset_index(drop = True)
@@ -54,14 +56,16 @@ with form_col:
                 guest = control.getInputs(st.session_state.name, st.session_state.reservation, st.session_state.numOfPeople, st.session_state.pickup, st.session_state.dropoff, st.session_state.ADA, st.session_state.date)
                 st.session_state.standard_df = pd.concat([st.session_state.standard_df, pd.DataFrame([guest.to_dict()])], ignore_index=True).sort_values(by=['res_date','res_time']).reset_index(drop = True)
             st.success(f"{guest.name} has been added to queue!")
-            # Write to Excel File
-            with pd.ExcelWriter('GKTW_Transportation_Data_Res.xlsx', engine='openpyxl', mode='a',if_sheet_exists='overlay') as writer:  
-                pd.DataFrame([guest.to_dict()]).to_excel(writer, sheet_name='Sheet1', startrow=writer.sheets['Sheet1'].max_row, index=False, header=False)
 
+            # Write to Excel File
+            with pd.ExcelWriter('database/GKTW_Transportation_Data_Res.xlsx', engine='openpyxl', mode='a',if_sheet_exists='overlay') as writer:  
+                pd.DataFrame([guest.to_dict()]).to_excel(writer, sheet_name='Sheet1', startrow=writer.sheets['Sheet1'].max_row, index=False, header=False)
+            
             # Write to SQL DB
             addData(str(guest.name), str(guest.res_date),str(guest.res_time), str(guest.pickup), str(guest.dropoff), str(guest.ADA), str(guest.numOfPeople))
+
 with standard_col:
-    # print('Adding to shuttle')
+    # View standard shuttle
     st.header(':oncoming_taxi: Standard Shuttle')
     st.session_state.edited_standard_df = st.data_editor(st.session_state.standard_df, 
                                 hide_index=True, 
@@ -72,6 +76,7 @@ with standard_col:
                             )
 
 with ada_col:
+    # View ADA shuttle
     ada_col.header(':manual_wheelchair: ADA Shuttle')
     st.session_state.edited_ada_df = ada_col.data_editor(st.session_state.ada_df, 
                                 hide_index=True, 
