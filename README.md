@@ -36,6 +36,7 @@ The application is divided into three sections: Input, Standard Shuttle View, an
 
 ### Input
 The dispatcher gets this information from the guest as the guest calls in to make a reservation and adds them to their respective queue and into the database:
+
 ![image](https://github.com/ivy-nguyen18/GKTW_Transportation/assets/73045170/d9e517d6-948c-4a94-8169-737401b356d2)
 
 ### Standard Shuttle View and ADA Shuttle View
