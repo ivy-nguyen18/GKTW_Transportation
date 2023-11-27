@@ -1,9 +1,12 @@
 import streamlit as st
-import time
 import pandas as pd
 import control
 from database import createTable, addData
+from PIL import Image
 
+st.set_page_config(layout = 'wide')
+image = Image.open('GKTW.png')
+st.image(image, width = 200)
 createTable()
 # Initialize session state with dataframes
 # Include initialization of "edited" slots by copying originals
@@ -19,10 +22,9 @@ def save_edits():
     st.session_state.ada_df = st.session_state.edited_ada_df.copy()
     st.session_state.standard_df = st.session_state.edited_standard_df.copy()
 
-st.set_page_config(layout="wide")
 marker = pd.read_excel('GKTW_Markers_2 (1).xlsx')
 
-st.title(':telephone_receiver: GKTW Shuttle Dispatcher')
+st.title(':telephone_receiver: GKTW Shuttle Dispatcher (Proof of Concept)')
 guest = None
 
 form_col, standard_col, ada_col = st.columns(3)
