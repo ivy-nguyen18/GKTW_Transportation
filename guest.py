@@ -1,4 +1,14 @@
 class Guest:
+     '''
+     Guest object: 
+         name: name of guest reserving
+         pickup: location of nearest building to pickup
+         dropoff: location of nearest building to dropoff
+         res_time: time indicated on reservation
+         ADA: requirement of ADA shuttle
+         numOfPeople: number of people within party
+         res_date: date reservation is made
+     '''
      def __init__(self, name, pickup, dropoff, reservation, ADA, numOfPeople,date):
         self.name = name
         self.pickup = pickup
