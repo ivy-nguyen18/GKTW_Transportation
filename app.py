@@ -5,9 +5,6 @@ from database import createTable, addData, repopulateTable
 from datetime import datetime 
 from PIL import Image
 
-'''
-Main page that deploys the streamlit app
-'''
 
 # Set up streamlit application
 st.set_page_config(layout = 'wide')
