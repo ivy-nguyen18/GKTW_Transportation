@@ -12,11 +12,12 @@ def createTable():
                                     reservation TEXT,
                                     ADA TEXT,
                                     waitTime TEXT,
-                                    numOfPeople TEXT
+                                    numOfPeople TEXT,
+                                    date TEXT
                                     )''')
 
-def addData(name, pickupLoc, dropoffLoc, reservation, ADA, waitTime, numOfPeople):
-    c.execute('INSERT INTO transportationTable(name, pickupLoc, dropoffLoc, reservation, ADA, waitTime, numOfPeople) VALUES (?,?,?,?,?,?,?)', [name, pickupLoc, dropoffLoc, reservation, ADA, waitTime, numOfPeople])
+def addData(name, pickupLoc, dropoffLoc, reservation, ADA, waitTime, numOfPeople, date):
+    c.execute('INSERT INTO transportationTable(name, pickupLoc, dropoffLoc, reservation, ADA, waitTime, numOfPeople, date) VALUES (?,?,?,?,?,?,?,?)', [name, pickupLoc, dropoffLoc, reservation, ADA, waitTime, numOfPeople, date])
     conn.commit()
 
 def getQuery(string):

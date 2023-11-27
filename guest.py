@@ -1,11 +1,12 @@
 class Guest:
-     def __init__(self, name, pickup, dropoff, driverStatus, reservation, ADA, travelTime, waitTime, numOfPeople, timeFromPrev):
+     def __init__(self, name, pickup, dropoff, driverStatus, reservation, ADA, date, travelTime, waitTime, numOfPeople, timeFromPrev):
         self.name = name
         self.pickup = pickup
         self.dropoff = dropoff
         self.driverStatus = driverStatus
         self.reservation = reservation
         self.ADA = ADA
+        self.date = date
         self.travelTime = travelTime
         self.waitTime = waitTime
         self.numOfPeople = numOfPeople
@@ -17,6 +18,7 @@ class Guest:
                     \tdropoff: {self.dropoff}
                     \treseration: {self.reservation}
                     \tADA: {self.ADA}
+                    \tDate: {self.date}
                     \ttravel time = {self.travelTime}
                     \twait time = {self.waitTime})
                     \tnum of people = {self.numOfPeople}
@@ -33,5 +35,6 @@ class Guest:
             'status': self.driverStatus,
             'travelTime': self.travelTime,
             'timeFromPrev': self.timeFromPrev,
-            'ADA': self.ADA
+            'ADA': self.ADA,
+            'date': self.date
         }

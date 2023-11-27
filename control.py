@@ -7,13 +7,13 @@ Controller to create Guest and get their wait time
 '''
 
 # Creating guest object
-def getInputs(name, reservation, numOfPeople, pickup, dropoff, ADA):
+def getInputs(name, reservation, numOfPeople, pickup, dropoff, ADA, date):
     travelTime = 0
     waitTime = 0
     dropoffFlag = 'Picking Up'
     timeFromPrev = 0
     travelTime = zones.zoneLookUp(pickup, dropoff)
-    return guest.Guest(name, pickup, dropoff, dropoffFlag, reservation, ADA, travelTime, waitTime, numOfPeople, timeFromPrev)
+    return guest.Guest(name, pickup, dropoff, dropoffFlag, reservation, ADA, date, travelTime, waitTime, numOfPeople, timeFromPrev)
         
 # Get guest wait time
 def getGuestInfo(guest, queue):
@@ -31,6 +31,6 @@ def getGuestInfo(guest, queue):
         guest.waitTime += guest.waitTime + 5 # add 5 minute leeway for boarding and dropoff
     return guest
 
-def controller(name, reservation, numOfPeople, pickup, dropoff, ADA, queue):
-    guest = getInputs(name, reservation, numOfPeople, pickup, dropoff, ADA)
+def controller(name, reservation, numOfPeople, pickup, dropoff, ADA, date, queue):
+    guest = getInputs(name, reservation, numOfPeople, pickup, dropoff, ADA, date)
     return getGuestInfo(guest, queue)

@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import control
 from database import createTable, addData
+from datetime import datetime 
 from PIL import Image
 
 
@@ -16,10 +17,10 @@ guest = None
 
 # Initialize session state with dataframes
 if 'ada_df' not in st.session_state:
-    st.session_state.ada_df = pd.DataFrame(columns=['name', 'waitTime', 'reservation','pickup', 'dropoff', 'numOfPeople', 'status', 'travelTime', 'timeFromPrev', 'ADA' ])
+    st.session_state.ada_df = pd.DataFrame(columns=['name', 'waitTime', 'reservation', 'pickup', 'dropoff', 'numOfPeople', 'status', 'travelTime', 'timeFromPrev', 'ADA', 'date' ])
     st.session_state.edited_ada_df = st.session_state.ada_df.copy()
 if 'standard_df' not in st.session_state:
-    st.session_state.standard_df = pd.DataFrame(columns=['name', 'waitTime', 'reservation','pickup', 'dropoff', 'numOfPeople', 'status', 'travelTime', 'timeFromPrev', 'ADA' ])
+    st.session_state.standard_df = pd.DataFrame(columns=['name', 'waitTime', 'reservation','pickup', 'dropoff', 'numOfPeople', 'status', 'travelTime', 'timeFromPrev', 'ADA', 'date'  ])
     st.session_state.edited_standard_df = st.session_state.standard_df.copy()
 
 # Save edits by copying edited dataframes to "original" slots in session state
@@ -35,9 +36,10 @@ with form_col:
     with st.form(key='form1', clear_on_submit = True):
         st.info('Please update queue with Driver\'s status before adding')
         st.text_input('Name', key = 'name')
-        col1, col2 = st.columns(2)
-        col1.time_input('Pick Up Time', value = 'now', key = 'reservation')
-        col2.selectbox('Num. of People', list(range(1,8)), key='numOfPeople', index = 0)
+        col1, col2, col3 = st.columns(3)
+        col1.date_input('Pick Up Date', value = 'today',format="MM/DD/YYYY", key = 'date')
+        col2.time_input('Pick Up Time', value = 'now', key = 'reservation')
+        col3.selectbox('Num. of People', list(range(1,8)), key='numOfPeople', index = 0)
         st.selectbox('Pick Up Location',marker['Name'], key='pickup', index = None)
         st.selectbox('Drop Off Location',marker['Name'], key='dropoff', index = None)
         st.checkbox('ADA', key = 'ADA')
@@ -45,10 +47,10 @@ with form_col:
         #Adding someone
         if submit_button:
             if st.session_state.ADA == True:
-                guest = control.controller(st.session_state.name, st.session_state.reservation, st.session_state.numOfPeople, st.session_state.pickup, st.session_state.dropoff, st.session_state.ADA, st.session_state.ada_df)
+                guest = control.controller(st.session_state.name, st.session_state.reservation, st.session_state.numOfPeople, st.session_state.pickup, st.session_state.dropoff, st.session_state.ADA, st.session_state.date, st.session_state.ada_df)
                 st.session_state.ada_df = pd.concat([st.session_state.ada_df, pd.DataFrame([guest.to_dict()])], ignore_index=True)
             else:
-                guest = control.controller(st.session_state.name, st.session_state.reservation, st.session_state.numOfPeople, st.session_state.pickup, st.session_state.dropoff, st.session_state.ADA, st.session_state.standard_df)
+                guest = control.controller(st.session_state.name, st.session_state.reservation, st.session_state.numOfPeople, st.session_state.pickup, st.session_state.dropoff, st.session_state.ADA, st.session_state.date, st.session_state.standard_df)
                 st.session_state.standard_df = pd.concat([st.session_state.standard_df, pd.DataFrame([guest.to_dict()])], ignore_index=True)
             st.success(f"{guest.name} has been added to queue with a wait time of {guest.waitTime} min(s)")
             
@@ -57,7 +59,7 @@ with form_col:
                 pd.DataFrame([guest.to_dict()]).to_excel(writer, sheet_name='Sheet1', startrow=writer.sheets['Sheet1'].max_row, index=False, header=False)
 
             # Write to SQL DB
-            addData(str(guest.name), str(guest.pickup), str(guest.dropoff), str(guest.reservation), str(guest.ADA), str(guest.waitTime), str(guest.numOfPeople))
+            addData(str(guest.name), str(guest.pickup), str(guest.dropoff), str(guest.reservation), str(guest.ADA), str(guest.waitTime), str(guest.numOfPeople), str(guest.date))
 
 # View Standard Shuttle
 with standard_col:
@@ -67,8 +69,8 @@ with standard_col:
                                 hide_index=True, 
                                 num_rows = 'dynamic', 
                                 key = 'df1',
-                                disabled = ('name', 'reservation','pickup', 'dropoff', 'numOfPeople'),
-                                column_order = ('name', 'reservation','pickup', 'dropoff', 'numOfPeople', 'status'),
+                                disabled = ('name', 'reservation','pickup', 'dropoff', 'numOfPeople', 'date'),
+                                column_order = ('name', 'reservation','date','pickup', 'dropoff', 'numOfPeople', 'status'),
                                 column_config={
                                     'status': st.column_config.SelectboxColumn(
                                         "status",
@@ -88,8 +90,8 @@ with ada_col:
                                 hide_index=True, 
                                 num_rows = 'dynamic',
                                 key = 'df2',
-                                disabled = ('name', 'reservation','pickup', 'dropoff', 'numOfPeople'),
-                                column_order = ('name', 'reservation','pickup', 'dropoff', 'numOfPeople', 'status'),
+                                disabled = ('name', 'reservation','pickup', 'dropoff', 'numOfPeople', 'date'),
+                                column_order = ('name', 'reservation','date', 'pickup', 'dropoff', 'numOfPeople', 'status'),
                                 column_config={
                                     'status': st.column_config.SelectboxColumn(
                                         "status",
