@@ -59,7 +59,7 @@ This application is able to:
 * Repopulate the table based on reservation time: If a guest chooses to reserve for a future date, when the future date comes, the guest will be repopulated in the table.
 * Sort based on reservation time
 * Run offline
-* Due to the repopulation nature of the table, if the operator were to delete some people and then exit from the application, and the run the application again, everyone that had a reservation date of the current date will be repopulated back into the table, regardless of whether or not they were previously deleted. Thus, **IT IS IMPORTANT TO NOT EXIT FROM THE APPLICATION**
+* Due to the repopulation nature of the table, if the operator were to delete some people and then exit from the application, and then run the application again, everyone that had a reservation date of the current date would be repopulated back into the table, regardless of whether or not they were previously deleted. Thus, **IT IS IMPORTANT TO NOT EXIT FROM THE APPLICATION**
 
 ## Dispatcher Steps:
 1. Guest calls in to request a shuttle, the dispatcher inputs the guest data into the form and adds them to the queue
