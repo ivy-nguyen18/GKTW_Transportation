@@ -15,7 +15,7 @@ A second iteration of the initial GKTW Dispatcher that allows for reservations b
   1. After launching DBeaver, at the top of the screen go to Database > New Database Connection > SQLite
      <img width="786" alt="image" src="https://github.com/ivy-nguyen18/GKTW_Transportation/assets/73045170/b78dddd4-668d-4af4-aa16-81aab31d2efa">
      <img width="685" alt="image" src="https://github.com/ivy-nguyen18/GKTW_Transportation/assets/73045170/29fc58ed-9e01-43a4-978c-7a71137f8644">
-  2. Press Open... and locate database/GKTWTransportationData.db
+  2. Press Open... and locate database/GKTWTransportationDataRes.db
   3. Press Open to exit the popup and then Finish to exit the initial popup
      <img width="689" alt="image" src="https://github.com/ivy-nguyen18/GKTW_Transportation/assets/73045170/e58d6b72-0221-4512-b296-7743d69aea72">
   4. You should be able to view the connection on the left panel of the screen under Database Navigator
