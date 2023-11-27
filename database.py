@@ -1,6 +1,6 @@
 import sqlite3
 
-conn = sqlite3.connect('GKTWTransportationData.db', check_same_thread=False)
+conn = sqlite3.connect('database/GKTWTransportationData.db', check_same_thread=False)
 c = conn.cursor()
 
 # Database
