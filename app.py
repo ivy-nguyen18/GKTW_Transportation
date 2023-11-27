@@ -5,7 +5,8 @@ from database import createTable, addData, repopulateTable
 from datetime import datetime 
 from PIL import Image
 
-image = Image.open('GKTW1.png')
+st.set_page_config(layout = 'wide')
+image = Image.open('GKTW.png')
 st.image(image, width = 200)
 createTable()
 
@@ -54,7 +55,7 @@ with form_col:
                 st.session_state.standard_df = pd.concat([st.session_state.standard_df, pd.DataFrame([guest.to_dict()])], ignore_index=True).sort_values(by=['res_date','res_time']).reset_index(drop = True)
             st.success(f"{guest.name} has been added to queue!")
             # Write to Excel File
-            with pd.ExcelWriter('/Users/ivynguyen/Desktop/GKTW_Transportation_Data_Res.xlsx', engine='openpyxl', mode='a',if_sheet_exists='overlay') as writer:  
+            with pd.ExcelWriter('GKTW_Transportation_Data_Res.xlsx', engine='openpyxl', mode='a',if_sheet_exists='overlay') as writer:  
                 pd.DataFrame([guest.to_dict()]).to_excel(writer, sheet_name='Sheet1', startrow=writer.sheets['Sheet1'].max_row, index=False, header=False)
 
             # Write to SQL DB
