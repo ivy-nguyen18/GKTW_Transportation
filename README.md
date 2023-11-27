@@ -42,11 +42,11 @@ The dispatcher gets this information from the guest as the guest calls in to mak
 ### Standard Shuttle View and ADA Shuttle View
 Depending on whether the ADA checkbox was checked, the guest will populate into the respective shuttle after clicking the "ADD" button.
 The functionality of the tables displayed:
-* Deleteable rows by either clicking the check box at the top of the table to select all and pressing the * *Backspace* * button on the keyboard:
+* Deleteable rows by either clicking the check box at the top of the table to select all and pressing the  *Backspace*  button on the keyboard:
   
   ![image](https://github.com/ivy-nguyen18/GKTW_Transportation/assets/73045170/1592b418-1cfd-4370-a5e3-08c08023065f)
   
-  or clicking the row for particular guests and pressing the Backspace button on the keyboard:
+  or clicking the row for particular guests and pressing the *Backspace* button on the keyboard:
   
   ![image](https://github.com/ivy-nguyen18/GKTW_Transportation/assets/73045170/8830774d-dcb9-4b1b-a24b-2e39bdb2ad8b)
   
