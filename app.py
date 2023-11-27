@@ -35,8 +35,9 @@ def save_edits():
 
 # Divide webpage into containers
 form_col, standard_col, ada_col = st.columns(3)
+
+# Construct the form to take user input
 with form_col:
-    # Construct the form to take user input
     with st.form(key='form1', clear_on_submit = True):
         st.text_input('Name', key = 'name')
         col1, col2, col3 = st.columns(3)
@@ -64,8 +65,8 @@ with form_col:
             # Write to SQL DB
             addData(str(guest.name), str(guest.res_date),str(guest.res_time), str(guest.pickup), str(guest.dropoff), str(guest.ADA), str(guest.numOfPeople))
 
+# View standard shuttle
 with standard_col:
-    # View standard shuttle
     st.header(':oncoming_taxi: Standard Shuttle')
     st.session_state.edited_standard_df = st.data_editor(st.session_state.standard_df, 
                                 hide_index=True, 
@@ -75,8 +76,8 @@ with standard_col:
                                 column_order = ('name', 'res_date', 'res_time','pickup', 'dropoff', 'numOfPeople'),
                             )
 
+# View ADA shuttle
 with ada_col:
-    # View ADA shuttle
     ada_col.header(':manual_wheelchair: ADA Shuttle')
     st.session_state.edited_ada_df = ada_col.data_editor(st.session_state.ada_df, 
                                 hide_index=True, 
