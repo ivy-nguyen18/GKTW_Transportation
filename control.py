@@ -26,7 +26,7 @@ def getGuestInfo(guest, queue):
         guest.waitTime = algorithm.getWaitTime(queue, driver)
         guest.timeFromPrev = zones.zoneLookUp(guest.pickup, queue.iloc[-1]['dropoff'])
         guest.waitTime += guest.timeFromPrev
-    guest.waitTime += guest.waitTime + 5
+        guest.waitTime += guest.waitTime + 5
     return guest
 
 def controller(name, reservation, numOfPeople, pickup, dropoff, ADA, queue):

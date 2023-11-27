@@ -8,11 +8,9 @@ createTable()
 # Initialize session state with dataframes
 # Include initialization of "edited" slots by copying originals
 if 'ada_df' not in st.session_state:
-    # print('Initializing ada_df')
     st.session_state.ada_df = pd.DataFrame(columns=['name', 'waitTime', 'reservation','pickup', 'dropoff', 'numOfPeople', 'status', 'travelTime', 'timeFromPrev', 'ADA' ])
     st.session_state.edited_ada_df = st.session_state.ada_df.copy()
 if 'standard_df' not in st.session_state:
-    # print('Initializing standard_df')
     st.session_state.standard_df = pd.DataFrame(columns=['name', 'waitTime', 'reservation','pickup', 'dropoff', 'numOfPeople', 'status', 'travelTime', 'timeFromPrev', 'ADA' ])
     st.session_state.edited_standard_df = st.session_state.standard_df.copy()
 
@@ -50,7 +48,7 @@ with form_col:
                 st.session_state.standard_df = pd.concat([st.session_state.standard_df, pd.DataFrame([guest.to_dict()])], ignore_index=True)
             st.success(f"{guest.name} has been added to queue with a wait time of {guest.waitTime} min(s)")
             # Write to Excel File
-            with pd.ExcelWriter('/Users/ivynguyen/Desktop/GKTW_Transportation_Data.xlsx', engine='openpyxl', mode='a',if_sheet_exists='overlay') as writer:  
+            with pd.ExcelWriter('GKTW_Transportation_Data.xlsx', engine='openpyxl', mode='a',if_sheet_exists='overlay') as writer:  
                 pd.DataFrame([guest.to_dict()]).to_excel(writer, sheet_name='Sheet1', startrow=writer.sheets['Sheet1'].max_row, index=False, header=False)
 
             # Write to SQL DB
