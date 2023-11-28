@@ -12,7 +12,7 @@ image = Image.open('support/GKTW.png')
 st.image(image, width = 200)
 createTable()
 marker = pd.read_excel('support/GKTW_Markers.xlsx')
-st.title(':telephone_receiver: GKTW Shuttle Dispatcher (Proof of Concept Ver.)')
+st.title(':telephone_receiver: GKTW Shuttle Dispatcher (Non-Reservation Ver.)')
 guest = None
 
 # Initialize session state with dataframes
