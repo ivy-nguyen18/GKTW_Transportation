@@ -30,7 +30,11 @@ Alternatively can be run on Visual Studio or any other IE, but for convenience a
 1. In the command prompt or terminal, go to the GKTW_Transportation directory using 'cd /path to directory/GKTW_Transportation'
 2. Install required libraries using **pip install -r requirements.txt**
 3. Run the application using this line **python app.py** (this line is relevant only if you are in the same directory as above, otherwise, you must use the full path to the file)
-4. Launch the application by calling **streamlit run app.py**
+4. Some warnings will be displayed in the console. Ignore it as it does not affect the application and continue to the next step
+   
+    <img width="562" alt="image" src="https://github.com/ivy-nguyen18/GKTW_Transportation/assets/73045170/807616ba-e56e-47f8-a91b-8da009e14580">
+
+5. Launch the application by calling **streamlit run app.py**
 
     ![image](https://github.com/ivy-nguyen18/GKTW_Transportation/assets/73045170/acac0c8c-c098-48e1-b238-3b903b1ff119)
 
