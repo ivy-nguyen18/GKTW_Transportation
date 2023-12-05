@@ -6,7 +6,7 @@ A second iteration of the initial GKTW Dispatcher that allows for reservations b
 ## Python
 1. Installation of [python](https://www.python.org/downloads/)
 2. Add python to PATH. Refer to this [video](https://www.youtube.com/watch?v=YYXdXT2l-Gg) for help
-3. Ensure that pip is installed properly by calling 'pip --version' in the command prompt or terminal (which can be found by using the search bar at the top or bottom of your screen)
+3. Ensure that pip is installed properly by calling **pip --version** in the command prompt or terminal (which can be found by using the search bar at the top or bottom of your screen)
 
 ## Database
 * The database used is **SQLite** . The database is located in database/GKTWTransportationDataRes.db 
@@ -26,10 +26,13 @@ A second iteration of the initial GKTW Dispatcher that allows for reservations b
      <img width="1102" alt="image" src="https://github.com/ivy-nguyen18/GKTW_Transportation/assets/73045170/2f11dfbb-aea8-4494-ae7c-526ce34e3302">
      
 # Running the Application
+Alternatively can be run on Visual Studio or any other IE, but for convenience and ease, the instructions use command prompt/ terminal
 1. In the command prompt or terminal, go to the GKTW_Transportation directory using 'cd /path to directory/GKTW_Transportation'
-2. Install required libraries using 'pip install -r requirements.txt'
-3. Run the application by calling 'streamlit run app.py'
-![image](https://github.com/ivy-nguyen18/GKTW_Transportation/assets/73045170/acac0c8c-c098-48e1-b238-3b903b1ff119)
+2. Install required libraries using **pip install -r requirements.txt**
+3. Run the application using this line **python app.py** (this line is relevant only if you are in the same directory as above, otherwise, you must use the full path to the file)
+4. Launch the application by calling **streamlit run app.py**
+
+    ![image](https://github.com/ivy-nguyen18/GKTW_Transportation/assets/73045170/acac0c8c-c098-48e1-b238-3b903b1ff119)
 
 ## Attributes of the Application
 The application is divided into three sections: Input, Standard Shuttle View, and ADA Shuttle View
@@ -37,7 +40,7 @@ The application is divided into three sections: Input, Standard Shuttle View, an
 ### Input
 The dispatcher gets this information from the guest as the guest calls in to make a reservation and adds them to their respective queue and into the database:
 
-![image](https://github.com/ivy-nguyen18/GKTW_Transportation/assets/73045170/d9e517d6-948c-4a94-8169-737401b356d2)
+  ![image](https://github.com/ivy-nguyen18/GKTW_Transportation/assets/73045170/d9e517d6-948c-4a94-8169-737401b356d2)
 
 ### Standard Shuttle View and ADA Shuttle View
 Depending on whether the ADA checkbox was checked, the guest will populate into the respective shuttle after clicking the "ADD" button.
