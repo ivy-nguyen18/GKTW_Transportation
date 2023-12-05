@@ -1,4 +1,4 @@
-# GKTW Dispatcher (Proof of Concept Ver)
+# GKTW Dispatcher (Non Reservation Ver)
 A second iteration of the initial GKTW Dispatcher that allows for reservations but does not include wait times.
 
 # Environment Setup
@@ -27,8 +27,9 @@ A second iteration of the initial GKTW Dispatcher that allows for reservations b
      
 # Running the Application
 1. In the command prompt or terminal, go to the GKTW_Transportation directory using 'cd /path to directory/GKTW_Transportation'
-2. Install required libraries using 'pip install -r requirements.txt'
-3. Run the application by calling 'streamlit run app.py'
+2. Install required libraries using **pip install -r requirements.txt**
+3. Run the program by compiling the program with **python app.py** (make sure you are in the same directory as the application to run this line, otherwise you need to the entire file path)
+4. Launch the application by calling **streamlit run app.py**
 ![image](https://github.com/ivy-nguyen18/GKTW_Transportation/assets/73045170/8ba479fe-0f56-41de-99ff-b49f2ee6dc32)
 
 ## Attributes of the Application
