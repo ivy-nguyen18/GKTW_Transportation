@@ -73,5 +73,6 @@ This application is able to:
 2. Before adding the guest to the queue, the dispatcher must communicate with the driver to get their current status in the queue. They must delete guests and update the status column as necessary. 
 3. After adding the guest to the queue, a wait time will be displayed at the bottom and the dispatcher relays this information back to the guest
 
-  ![image](https://github.com/ivy-nguyen18/GKTW_Transportation/assets/73045170/e1b4ff88-dc0b-411a-91f8-18c2053550c9)
+    ![image](https://github.com/ivy-nguyen18/GKTW_Transportation/assets/73045170/e1b4ff88-dc0b-411a-91f8-18c2053550c9)
+  
 4. The dispatcher relays the guest pickup and dropoff location to the appropriate shuttle driver (ADA or Standard)
