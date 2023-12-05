@@ -29,7 +29,11 @@ A second iteration of the initial GKTW Dispatcher that allows for reservations b
 1. In the command prompt or terminal, go to the GKTW_Transportation directory using 'cd /path to directory/GKTW_Transportation'
 2. Install required libraries using **pip install -r requirements.txt**
 3. Run the program by compiling the program with **python app.py** (make sure you are in the same directory as the application to run this line, otherwise you need to the entire file path)
-4. Launch the application by calling **streamlit run app.py**
+4. Some warnings will be displayed in the console. Ignore it as it does not affect the application and continue to the next step
+   
+    <img width="562" alt="image" src="https://github.com/ivy-nguyen18/GKTW_Transportation/assets/73045170/807616ba-e56e-47f8-a91b-8da009e14580">
+    
+5. Launch the application by calling **streamlit run app.py**
 ![image](https://github.com/ivy-nguyen18/GKTW_Transportation/assets/73045170/8ba479fe-0f56-41de-99ff-b49f2ee6dc32)
 
 ## Attributes of the Application
