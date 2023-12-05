@@ -6,7 +6,7 @@ A second iteration of the initial GKTW Dispatcher that allows for reservations b
 ## Python
 1. Installation of [python](https://www.python.org/downloads/)
 2. Add python to PATH. Refer to this [video](https://www.youtube.com/watch?v=YYXdXT2l-Gg) for help
-3. Ensure that pip is installed properly by calling 'pip --version' in the command prompt or terminal (which can be found by using the search bar at the top or bottom of your screen)
+3. Ensure that pip is installed properly by calling **pip --version** in the command prompt or terminal (which can be found by using the search bar at the top or bottom of your screen)
 
 ## Database
 * The database used is **SQLite** . The database is located in database/GKTWTransportationDataRes.db 
