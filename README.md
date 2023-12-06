@@ -1,4 +1,4 @@
-# GKTW Dispatcher (Proof of Concept Ver)
+# GKTW Dispatcher (Non Reservation Ver)
 A second iteration of the initial GKTW Dispatcher that allows for reservations but does not include wait times.
 
 # Environment Setup
@@ -6,7 +6,7 @@ A second iteration of the initial GKTW Dispatcher that allows for reservations b
 ## Python
 1. Installation of [python](https://www.python.org/downloads/)
 2. Add python to PATH. Refer to this [video](https://www.youtube.com/watch?v=YYXdXT2l-Gg) for help
-3. Ensure that pip is installed properly by calling 'pip --version' in the command prompt or terminal (which can be found by using the search bar at the top or bottom of your screen)
+3. Ensure that pip is installed properly by calling **pip --version** in the command prompt or terminal (which can be found by using the search bar at the top or bottom of your screen)
 
 ## Database
 * The database used is **SQLite** . The database is located in database/GKTWTransportationDataRes.db 
@@ -27,8 +27,13 @@ A second iteration of the initial GKTW Dispatcher that allows for reservations b
      
 # Running the Application
 1. In the command prompt or terminal, go to the GKTW_Transportation directory using 'cd /path to directory/GKTW_Transportation'
-2. Install required libraries using 'pip install -r requirements.txt'
-3. Run the application by calling 'streamlit run app.py'
+2. Install required libraries using **pip install -r requirements.txt**
+3. Run the program by compiling the program with **python app.py** (make sure you are in the same directory as the application to run this line, otherwise you need to the entire file path)
+4. Some warnings will be displayed in the console. Ignore it as it does not affect the application and continue to the next step
+   
+    <img width="562" alt="image" src="https://github.com/ivy-nguyen18/GKTW_Transportation/assets/73045170/807616ba-e56e-47f8-a91b-8da009e14580">
+    
+5. Launch the application by calling **streamlit run app.py**
 ![image](https://github.com/ivy-nguyen18/GKTW_Transportation/assets/73045170/8ba479fe-0f56-41de-99ff-b49f2ee6dc32)
 
 ## Attributes of the Application
@@ -71,5 +76,7 @@ This application is able to:
 1. Guest calls in to request a shuttle, the dispatcher inputs the guest data into the form
 2. Before adding the guest to the queue, the dispatcher must communicate with the driver to get their current status in the queue. They must delete guests and update the status column as necessary. 
 3. After adding the guest to the queue, a wait time will be displayed at the bottom and the dispatcher relays this information back to the guest
-  ![image](https://github.com/ivy-nguyen18/GKTW_Transportation/assets/73045170/e1b4ff88-dc0b-411a-91f8-18c2053550c9)
+
+    ![image](https://github.com/ivy-nguyen18/GKTW_Transportation/assets/73045170/e1b4ff88-dc0b-411a-91f8-18c2053550c9)
+  
 4. The dispatcher relays the guest pickup and dropoff location to the appropriate shuttle driver (ADA or Standard)
